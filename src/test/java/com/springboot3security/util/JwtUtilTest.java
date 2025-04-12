@@ -1,7 +1,6 @@
-package com.ey.springboot3security.util;
+package com.springboot3security.util;
 
 import com.springboot3security.Springboot3SecurityApplication;
-import com.springboot3security.util.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
