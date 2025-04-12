@@ -2,7 +2,9 @@
 
 This project is a Spring Boot 3 application that demonstrates the implementation of security features, including user
 authentication and authorization using JWT (JSON Web Tokens). It includes a custom user management system and integrates
-with Spring Security.
+with Spring Security.  I completed this as a prototype for the fishing-log3 application, which is a web application for
+logging fishing trips. The fishing-log3 application is a work in progress, and this project serves as a proof of concept
+for the security features that will be implemented in the fishing-log3 application.
 
 ## Features
 
