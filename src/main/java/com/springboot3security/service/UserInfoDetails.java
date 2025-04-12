@@ -8,20 +8,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UserInfoDetails implements UserDetails {
 
-    private String username;
-    private String password;
-    private List<GrantedAuthority> authorities;
+    private final String username;
+    private final String password;
+    private final List<GrantedAuthority> authorities;
 
     public UserInfoDetails(UserInfo userInfo) {
         this.username = userInfo.getUsername(); // Use email as username
         this.password = userInfo.getPassword();
-        this.authorities = List.of(userInfo.getRole())
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        this.authorities = userInfo.getRole() != null
+                ? Stream.of(userInfo.getRole())
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList())
+                : List.of();
     }
 
     @Override
