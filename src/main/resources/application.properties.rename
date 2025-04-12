@@ -1,5 +1,5 @@
 spring.main.allow-circular-references=true
-# databse connection - update based on your environment
+# database connection - update based on your environment
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.url=jdbc:postgresql://localhost:5432/springbootreactjwt
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
