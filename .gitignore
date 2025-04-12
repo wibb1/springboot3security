@@ -1,0 +1,54 @@
+# Maven target directory
+/target/
+
+# Maven wrapper files
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Logs
+/logs/
+/*.log
+
+# Application properties
+/src/main/resources/application.properties
+
+# IntelliJ IDEA
+.idea/
+/*.iml
+*.iws
+*.ipr
+
+# Eclipse/STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+/.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build directories
+/build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig

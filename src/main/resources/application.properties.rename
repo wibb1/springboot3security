@@ -1,0 +1,18 @@
+spring.main.allow-circular-references=true
+# databse connection - update based on your environment
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/springbootreactjwt
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.datasource.username=springbootreactjwt
+spring.datasource.password=<your_password>
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+spring.jpa.show-sql=true
+logging.file.path=<your_path_to_log_file> ## the folder you want your log file in
+
+## to generate a basse64 encoded key start with a key value 64 characters long in jwt.secret then run
+## com/springboot3security/util/SecretKeyEncoder.java
+## the output line should be copied to the jwt.secret property, replacing the value you started with
+## remove any = characters at the end of the line, these are padding characters and are not needed
+jwt.secret=<your_secret_key_64_characters_long>
