@@ -106,6 +106,7 @@ Access the application at http://localhost:8080.
     - http://localhost:8080/auth/welcome
     - Response: `Welcome this endpoint is not secure`
     - Status Code: `200 OK`
+![img.png](readme_images/welcome-endpoint.png)
 2. Add New User Endpoint:
     - POST /user: Adds a new user.
     - http://localhost:8080/auth/addNewUser
@@ -120,6 +121,8 @@ Access the application at http://localhost:8080.
       ```
     - Response: `User added successfully` OR `User already exists`
     - Status Code: `200 OK`
+![img.png](readme_images/user-already-exists.png)
+![img_1.png](readme_images/admin-already-exists.png)
 3. Generate Authentication Token:
     - POST /authenticate: Authenticates a user and generates a JWT.
     - http://localhost:8080/auth/generateToken
@@ -133,14 +136,17 @@ Access the application at http://localhost:8080.
       ```
     - Response: JWT token.
     - Status Code: `200 OK`
+![img.png](readme_images/user-generate-token.png)
 4. Secure Endpoint for User Role:
     - GET /user: Access restricted to users with the USER role.
     - http://localhost:8080/auth/user
     - Keys: JWT token in the Authorization header. Must be prefixed with "Bearer ".
+![img.png](readme_images/user-secured-page.png)
 5. Secure Endpoint for Admin Role:
     - GET /admin: Access restricted to users with the ADMIN role.
     - http://localhost:8080/auth/admin
     - Keys: JWT token in the Authorization header. Must be prefixed with "Bearer ".
+![img_1.png](readme_images/admin-secured-page.png)
 6. Testing
    Run the unit tests using Maven:
 
