@@ -51,7 +51,7 @@ for the security features that will be implemented in the fishing-log3 applicati
       logging.file.path=<your_path_to_log_file> ## the folder you want your log file in
       ```
 
-- To generate a base64 encoded key, you can ask an AI to generate one for you or use the SecretKeyEncoder to generate one
+- To generate a base64 encoded key, you can ask an AI to generate one (`generate an base64 encoded key value with 64 bytes`) for you or use the SecretKeyEncoder to generate one
     - To use the SecretKeyEncoder, start with a key value 64 characters long in `jwt.secret` 
       ```properties
       jwt.secret=<your_secret_key_64_characters_long>
@@ -64,11 +64,11 @@ for the security features that will be implemented in the fishing-log3 applicati
       ```bash
       java -cp src/main/java com.springboot3security.util.SecretKeyEncoder
       ```
-    - Remove any `=` characters at the end of the output line, these are padding characters, will cause errors, and are not needed. 
-      The output line from the SecretKeyEncoder run should be copied to the `jwt.secret` property, replacing the value you just entered.  
-      ```properties
-      jwt.secret=<your_secret_key_64_characters_long>
-      ```
+- Remove any `=` characters at the end of the key, these are padding characters, will cause errors, and are not needed. 
+  The output line from the SecretKeyEncoder run or AI should be copied to the `jwt.secret` property, replacing the current value.  
+  ```properties
+  jwt.secret=<your_secret_key_64_characters_long>
+  ```
 
 ## How to Run
 
