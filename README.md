@@ -40,39 +40,35 @@ for the security features that will be implemented in the fishing-log3 applicati
     - Rename it to `application.properties` and update the values as needed.
     - Edit the database connection properties:
       ```properties
-- database connection - update based on your environment
+      spring.datasource.driver-class-name=org.postgresql.Driver
+      spring.datasource.url=jdbc:postgresql://localhost:5432/springbootreactjwt
+      spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+      spring.datasource.username=springbootreactjwt
+      spring.datasource.password=<your_password>
+      ```
+    - Update log file location
+      ```properties
+      logging.file.path=<your_path_to_log_file> ## the folder you want your log file in
+      ```
 
-```
-    spring.datasource.driver-class-name=org.postgresql.Driver
-    spring.datasource.url=jdbc:postgresql://localhost:5432/springbootreactjwt
-    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-    spring.datasource.username=springbootreactjwt
-    spring.datasource.password=<your_password>
-```
-
-- Update log file location
-```properties
-logging.file.path=<your_path_to_log_file> ## the folder you want your log file in
-```
-
-- To generate a base64 encoded key, you can ask AI to generate one for you or use the SecretKeyEncoder to generate one
-- To use the SecretKeyEncoder, start with a key value 64 characters long in `jwt.secret` 
-```properties
-jwt.secret=<your_secret_key_64_characters_long>
-```
-- then compile SecretKeyEncoder.java
-  ```bash 
-    javac src/main/java/com/springboot3security/util/SecretKeyEncoder.java
-    ```
-- run the class with the key value you entered in `jwt.secret` as an argument
-  ```bash
-    java -cp src/main/java com.springboot3security.util.SecretKeyEncoder
-    ```
-remove any `=` characters at the end of the output line, these are padding characters, will cause errors, and are not needed. 
-The output line from the SecretKeyEncoder run should be copied to the `jwt.secret` property, replacing the value you just entered.  
-```properties
-jwt.secret=<your_secret_key_64_characters_long>
-```
+- To generate a base64 encoded key, you can ask an AI to generate one for you or use the SecretKeyEncoder to generate one
+    - To use the SecretKeyEncoder, start with a key value 64 characters long in `jwt.secret` 
+      ```properties
+      jwt.secret=<your_secret_key_64_characters_long>
+      ```
+    - Then compile SecretKeyEncoder.java
+      ```bash 
+      javac src/main/java/com/springboot3security/util/SecretKeyEncoder.java
+      ```
+    - run the class with the key value you entered in `jwt.secret` as an argument
+      ```bash
+      java -cp src/main/java com.springboot3security.util.SecretKeyEncoder
+      ```
+    - remove any `=` characters at the end of the output line, these are padding characters, will cause errors, and are not needed. 
+      The output line from the SecretKeyEncoder run should be copied to the `jwt.secret` property, replacing the value you just entered.  
+      ```properties
+      jwt.secret=<your_secret_key_64_characters_long>
+      ```
 
 ## How to Run
 
@@ -81,25 +77,25 @@ jwt.secret=<your_secret_key_64_characters_long>
    git clone <repository-url>
    cd <repository-folder>
    ```
-   Build the project using Maven:
+2. Build the project using Maven:
 
-```bash
-mvn clean install
-```
+    ```bash
+    mvn clean install
+    ```
 
-Run the application:
+3.  Run the application:
 
-```bash
-mvn spring-boot:run
-```
+    ```bash
+    mvn spring-boot:run
+    ```
 
-or run the JAR file:
+    or run the JAR file:
 
-```bash
-   java -jar target/spring-boot-3-security-0.0.1-SNAPSHOT.jar
-```
+    ```bash
+    java -jar target/spring-boot-3-security-0.0.1-SNAPSHOT.jar
+    ```
 
-Access the application at http://localhost:8080.
+4. Access the application at http://localhost:8080.
 
 ## Endpoints
 
@@ -152,8 +148,8 @@ Access the application at http://localhost:8080.
 6. Testing
    Run the unit tests using Maven:
 
-```bash
-   mvn test
-   ```
+    ```bash
+    mvn test
+    ```
 
 This will execute all the tests in the `src/test/java` directory.
