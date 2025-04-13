@@ -135,6 +135,11 @@ for the security features that will be implemented in the fishing-log3 applicati
     - Response: JWT token.
     - Status Code: `200 OK`
 ![img.png](readme_images/user-generate-token.png)
+4. Use jwt.io to decode the token and view the payload
+   - Copy the token from the response and paste it into the "Encoded Value" field on jwt.io.
+   - Copy the Secret value and paste into the "JWT Signature Verification" field on jwt.io.
+   - The payload will show the username (sub) and issue (iat) and expiration (exp) dates.
+![img.png](readme_images/jwt-io.png)
 4. Secure Endpoint for User Role:
     - GET /user: Access restricted to users with the USER role.
     - http://localhost:8080/auth/user
