@@ -60,11 +60,11 @@ for the security features that will be implemented in the fishing-log3 applicati
       ```bash 
       javac src/main/java/com/springboot3security/util/SecretKeyEncoder.java
       ```
-    - run the class with the key value you entered in `jwt.secret` as an argument
+    - Run the class with the key value you entered in `jwt.secret` as an argument
       ```bash
       java -cp src/main/java com.springboot3security.util.SecretKeyEncoder
       ```
-    - remove any `=` characters at the end of the output line, these are padding characters, will cause errors, and are not needed. 
+    - Remove any `=` characters at the end of the output line, these are padding characters, will cause errors, and are not needed. 
       The output line from the SecretKeyEncoder run should be copied to the `jwt.secret` property, replacing the value you just entered.  
       ```properties
       jwt.secret=<your_secret_key_64_characters_long>
@@ -74,8 +74,8 @@ for the security features that will be implemented in the fishing-log3 applicati
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/wibb1/springboot3security.git
+   cd <your-repository-folder>
    ```
 2. Build the project using Maven:
 
@@ -98,13 +98,14 @@ for the security features that will be implemented in the fishing-log3 applicati
 4. Access the application at http://localhost:8080.
 
 ## Endpoints
+Use Postman or any other API testing tool to test the endpoints. The application runs on port 8080 by default.
 
 1. Welcome Endpoint:
     - GET /: Returns a welcome message.
     - http://localhost:8080/auth/welcome
     - Response: `Welcome this endpoint is not secure`
     - Status Code: `200 OK`
-![img.png](readme_images/welcome-endpoint.png)
+![Welcome response in Postman](readme_images/welcome-endpoint.png)
 2. Add New User Endpoint:
     - POST /user: Adds a new user.
     - http://localhost:8080/auth/addNewUser
@@ -119,8 +120,8 @@ for the security features that will be implemented in the fishing-log3 applicati
       ```
     - Response: `User added successfully` OR `User already exists`
     - Status Code: `200 OK`
-![img.png](readme_images/user-already-exists.png)
-![img_1.png](readme_images/admin-already-exists.png)
+![Example of New User endpoint in Postman](readme_images/user-already-exists.png)
+![Example of New Admin endpoint in Postman](readme_images/admin-already-exists.png)
 3. Generate Authentication Token:
     - POST /authenticate: Authenticates a user and generates a JWT.
     - http://localhost:8080/auth/generateToken
@@ -134,23 +135,29 @@ for the security features that will be implemented in the fishing-log3 applicati
       ```
     - Response: JWT token.
     - Status Code: `200 OK`
-![img.png](readme_images/user-generate-token.png)
+![Example of Generating an Authentication Token in Postman](readme_images/user-generate-token.png)
 4. Use jwt.io to decode the token and view the payload
    - Copy the token from the response and paste it into the "Encoded Value" field on jwt.io.
    - Copy the Secret value and paste into the "JWT Signature Verification" field on jwt.io.
    - The payload will show the username (sub) and issue (iat) and expiration (exp) dates.
-![img.png](readme_images/jwt-io.png)
+![Example of inputs for decoding the JWT on jwt.io](readme_images/jwt-io.png)
 4. Secure Endpoint for User Role:
     - GET /user: Access restricted to users with the USER role.
     - http://localhost:8080/auth/user
     - Keys: JWT token in the Authorization header. Must be prefixed with "Bearer ".
-![img.png](readme_images/user-secured-page.png)
+![Example Response from an Authenticated User Endpoint](readme_images/user-secured-page.png)
 5. Secure Endpoint for Admin Role:
     - GET /admin: Access restricted to users with the ADMIN role.
     - http://localhost:8080/auth/admin
     - Keys: JWT token in the Authorization header. Must be prefixed with "Bearer ".
-![img_1.png](readme_images/admin-secured-page.png)
-6. Testing
+![Expample Response from an Authenticated Admin User Endpoint](readme_images/admin-secured-page.png)
+7. Secure Endpoint for Admin Role Hit By Authenticated User
+    - GET /admin: Access restricted to users with the ADMIN role.
+    - http://localhost:8080/auth/admin
+    - Keys: JWT token in the Authorization header. Must be prefixed with "Bearer ".
+    - Response: `403 Forbidden`
+![Example Response when attempting Unauthorized Access](readme_images/unauthorized-user.png)
+8. Testing
    Run the unit tests using Maven:
 
     ```bash
