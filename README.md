@@ -22,6 +22,30 @@ for the security features that will be implemented in the fishing-log3 applicati
 - **JWT**: Token-based authentication.
 - **Maven**: Build and dependency management tool.
 - **JUnit 5**: For unit testing.
+- **PostgresSQL**: Database for storing user data.
+
+## Quick Start
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/wibb1/springboot3security.git
+   cd springboot3security
+2. Set Up the Database:
+    - Install PostgresSQL.
+    - Create a database named springbootreactjwt.
+    - Update the application.properties file with your database credentials.
+    - You can also use a different database, but you will need to update all applicable database related properties in the application.properties file.  For more details see `Configuration section 1`.
+    - Generate a base64 encoded key for the JWT secret. For more detail see `Configuration section 2 and 3`.
+3. Build the Project:
+    ```bash
+    mvn clean install
+    ```
+4. Run the Application:
+    ```bash
+    mvn spring-boot:run
+    ```
+5. Test the Endpoints:
+    - Use Postman or curl to test the endpoints listed in the "Endpoints" section.  I provide Postman examples in the Endpoints section below.
 
 ## Project Structure
 
@@ -35,7 +59,7 @@ for the security features that will be implemented in the fishing-log3 applicati
 
 ## Configuration
 
-- **application.properties**: Configuration file for database connection, JWT secret key, and other properties.
+1. **application.properties**: Configuration file for database connection, JWT secret key, and other properties.
     - Example file available as `src/main/resources/application.properties.rename`:
     - Rename it to `application.properties` and update the values as needed.
     - Edit the database connection properties:
@@ -50,8 +74,7 @@ for the security features that will be implemented in the fishing-log3 applicati
       ```properties
       logging.file.path=<your_path_to_log_file> ## the folder you want your log file in
       ```
-
-- To generate a base64 encoded key, you can ask an AI to generate one (`generate an base64 encoded key value with 64 bytes`) for you or use the SecretKeyEncoder to generate one
+2. To generate a base64 encoded key, you can ask an AI to generate one (`generate an base64 encoded key value with 64 bytes`) for you or use the SecretKeyEncoder to generate one
     - To use the SecretKeyEncoder, start with a key value 64 characters long in `jwt.secret` 
       ```properties
       jwt.secret=<your_secret_key_64_characters_long>
@@ -64,40 +87,43 @@ for the security features that will be implemented in the fishing-log3 applicati
       ```bash
       java -cp src/main/java com.springboot3security.util.SecretKeyEncoder
       ```
-- Remove any `=` characters at the end of the key, these are padding characters, will cause errors, and are not needed. 
+3. Remove any `=` characters at the end of the key, these are padding characters, will cause errors, and are not needed. 
   The output line from the SecretKeyEncoder run or AI should be copied to the `jwt.secret` property, replacing the current value.  
   ```properties
   jwt.secret=<your_secret_key_64_characters_long>
   ```
-
+  
 ## How to Run
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/wibb1/springboot3security.git
-   cd <your-repository-folder>
+   cd springboot3security
    ```
 2. Build the project using Maven:
-
     ```bash
     mvn clean install
     ```
-
 3.  Run the application:
-
     ```bash
     mvn spring-boot:run
     ```
-
     or run the JAR file:
-
     ```bash
     java -jar target/spring-boot-3-security-0.0.1-SNAPSHOT.jar
     ```
-
 4. Access the application at http://localhost:8080.
+5. Testing 
+    - The application includes unit tests for the service and controller layers. 
+    - You can run the tests using your IDE or from the command line.
+    - To run the unit tests using Maven:
+      ```bash
+      mvn test
+      ```
+      This will execute all the tests in the `src/test/java` directory.
 
 ## Endpoints
+
 Use Postman or any other API testing tool to test the endpoints. The application runs on port 8080 by default.
 
 1. Welcome Endpoint:
@@ -157,11 +183,3 @@ Use Postman or any other API testing tool to test the endpoints. The application
     - Keys: JWT token in the Authorization header. Must be prefixed with "Bearer ".
     - Response: `403 Forbidden`
 ![Example Response when attempting Unauthorized Access](readme_images/unauthorized-user.png)
-8. Testing
-   Run the unit tests using Maven:
-
-    ```bash
-    mvn test
-    ```
-
-This will execute all the tests in the `src/test/java` directory.
