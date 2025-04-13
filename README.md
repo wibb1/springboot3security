@@ -16,9 +16,9 @@ for the security features that will be implemented in the fishing-log3 applicati
 
 ## Technologies Used
 
-- **Java**: Core programming language.
+- **Java 17**: Core programming language.
 - **Spring Boot 3**: Framework for building the application.
-- **Spring Security**: For authentication and authorization.
+- **Spring Security 6**: For authentication and authorization.
 - **JWT**: Token-based authentication.
 - **Maven**: Build and dependency management tool.
 - **JUnit 5**: For unit testing.
