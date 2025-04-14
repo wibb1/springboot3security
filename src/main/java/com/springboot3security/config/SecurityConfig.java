@@ -1,7 +1,8 @@
 package com.springboot3security.config;
 
 import com.springboot3security.filter.JwtAuthFilter;
-import com.springboot3security.service.UserInfoService;
+import com.springboot3security.repository.UserInfoRepository;
+import com.springboot3security.service.UserInfoDetails;
 import com.springboot3security.util.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +11,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,20 +24,28 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
+
+    private final JwtAuthFilter jwtAuthFilter;
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfig(@Lazy JwtAuthFilter jwtAuthFilter,
+                          @Lazy UserDetailsService userDetailsService) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(UserInfoRepository repository) {
+        return username -> repository.findByUsername(username)
+                .map(UserInfoDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
 
     @Bean
     public JwtUtil jwtUtil() {
         return new JwtUtil();
-    }
-
-    private final JwtAuthFilter jwtAuthFilter;
-    private final UserInfoService userInfoService;
-
-    public SecurityConfig(@Lazy JwtAuthFilter jwtAuthFilter,
-                          @Lazy UserInfoService userInfoService) {
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.userInfoService = userInfoService;
     }
 
     /*
@@ -74,7 +85,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userInfoService);
+        provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
