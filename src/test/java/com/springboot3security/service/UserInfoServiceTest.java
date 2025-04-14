@@ -2,11 +2,13 @@ package com.springboot3security.service;
 
 import com.springboot3security.entity.UserInfo;
 import com.springboot3security.repository.UserInfoRepository;
+import com.springboot3security.util.JwtUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -23,6 +25,12 @@ class UserInfoServiceTest {
     @Mock
     private PasswordEncoder encoder;
 
+    @Mock
+    private JwtUtil jwtUtil;
+
+    @Mock
+    private UserDetailsService userDetailsService;
+
     private UserInfoService userInfoService;
 
     private AutoCloseable closeable;
@@ -30,35 +38,12 @@ class UserInfoServiceTest {
     @BeforeEach
     void setUp() {
         closeable = MockitoAnnotations.openMocks(this);
-        userInfoService = new UserInfoService(repository, encoder);
+        userInfoService = new UserInfoService(repository, encoder, jwtUtil, userDetailsService);
     }
 
     @AfterEach
     void tearDown() throws Exception {
         closeable.close();
-    }
-
-    @Test
-    void testLoadUserByUsername_UserExists() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUsername("testUser");
-        userInfo.setPassword("password");
-        userInfo.setRole("ROLE_TEST");
-        when(repository.findByUsername("testUser")).thenReturn(Optional.of(userInfo));
-
-        UserInfoDetails userDetails = (UserInfoDetails) userInfoService.loadUserByUsername("testUser");
-
-        assertNotNull(userDetails);
-        assertEquals("testUser", userDetails.getUsername());
-        verify(repository, times(1)).findByUsername("testUser");
-    }
-
-    @Test
-    void testLoadUserByUsername_UserDoesNotExist() {
-        when(repository.findByUsername("nonExistentUser")).thenReturn(Optional.empty());
-
-        assertThrows(UsernameNotFoundException.class, () -> userInfoService.loadUserByUsername("nonExistentUser"));
-        verify(repository, times(1)).findByUsername("nonExistentUser");
     }
 
     @Test
@@ -99,7 +84,7 @@ class UserInfoServiceTest {
 
         String result = userInfoService.addUser(userInfo);
 
-        assertEquals("Password does not meet security requirements", result);
+        assertEquals("Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.", result);
         verify(repository, never()).save(any());
     }
 
