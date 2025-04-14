@@ -4,9 +4,17 @@
 3. [Technologies Used](#technologies-used)
 4. [Quick Start](#quick-start)
 5. [Project Structure](#project-structure)
-6. [Configuration](#configuration)
-7. [How to Run](#how-to-run)
-8. [Endpoints](#endpoints)
+6. [Security](#security)
+    - [Authentication](#authentication)
+    - [Authorization](#authorization)
+    - [Security Configuration](#security-configuration)
+    - [Summary of Security Flow](#summary-of-security-flow)
+    - [Testing Security](#testing-security)
+7. [Configuration](#configuration)
+8. [How to Run](#how-to-run)
+9. [Testing](#testing)
+10. [Endpoints](#endpoints)
+11. [Logging](#logging)
 
 # Spring Boot 3 Security Application
 
@@ -207,7 +215,7 @@ java -jar target/spring-boot-3-security-0.0.1-SNAPSHOT.jar
 ```
 Access the application at http://localhost:8080.
 
-## Testing 
+## Testing
 The application includes comprehensive test coverage:
 
 - **Controller Tests**:
