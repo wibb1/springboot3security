@@ -38,6 +38,8 @@ for the security features that will be implemented in the fishing-log3 applicati
 - **Testing**:
     - Unit tests for services and components.
     - Security tests for JWT validation and role-based access.
+    - Role-based endpoint access tests.
+    - Comprehensive test coverage for security features.
 
 ## Technologies Used
 
